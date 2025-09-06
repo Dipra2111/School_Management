@@ -1,60 +1,36 @@
-# 🏫 School Management - Add School Form
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-A simple Next.js project that allows users to **add school details** (name, address, contact, email, image, etc.) and stores them in a MySQL database.
+## Getting Started
 
-## ✨ Features
-- 📋 Form to add school details (Name, Address, City, State, Contact, Email).
-- 🖼️ Upload school image.
-- 🎨 Beautiful UI built with **Tailwind CSS**.
-- ✅ Validations handled with **react-hook-form**.
-- ⚡ API route to handle form submission and save data to **MySQL**.
-- 🔒 Error handling & success messages.
+First, run the development server:
 
----
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
 
-## 🛠️ Tech Stack
-- [Next.js](https://nextjs.org/) (App Router)
-- [React Hook Form](https://react-hook-form.com/) (Form handling + validation)
-- [Tailwind CSS](https://tailwindcss.com/) (Styling)
-- [MySQL](https://www.mysql.com/) (Database)
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
----
+You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
 
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## ⚙️ Setup & Installation
+## Learn More
 
-1. **Clone the repo**
-   ```bash
-   git clone https://github.com/Dipra2111/School_Management.git
-   cd school-management
-2. Install dependencies
-   npm install
+To learn more about Next.js, take a look at the following resources:
 
-3. Run the development server
-   npm run dev
-   Open http://localhost:3000🎉
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-🗄️ Database
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-Use MySQL and create the schools table:
+## Deploy on Vercel
 
-CREATE DATABASE schooldb;
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-USE schooldb;
-
-CREATE TABLE schools (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(100) NOT NULL,
-  address VARCHAR(255) NOT NULL,
-  city VARCHAR(100) NOT NULL,
-  state VARCHAR(100) NOT NULL,
-  contact VARCHAR(15) NOT NULL,
-  email_id VARCHAR(100) NOT NULL,
-  image VARCHAR(255) NOT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
-
-👉 To clear all rows but keep the table:
-
-TRUNCATE TABLE schooldb.schools;
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
