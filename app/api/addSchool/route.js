@@ -1,7 +1,10 @@
 import { getConnection } from "@/lib/db";
 import { NextResponse } from "next/server";
-import fs from "fs";
-import path from "path";
+import { v2 as cloudinary } from "cloudinary";
+
+cloudinary.config({
+  cloudinary_url: process.env.CLOUDINARY_URL,
+});
 
 export async function POST(req) {
   try {
@@ -15,23 +18,30 @@ export async function POST(req) {
     const email_id = formData.get("email_id");
     const imageFile = formData.get("image");
 
-    let imagePath = null;
+    let imageUrl = null;
 
     if (imageFile && imageFile.name) {
       const bytes = await imageFile.arrayBuffer();
       const buffer = Buffer.from(bytes);
 
-      const fileName = Date.now() + path.extname(imageFile.name);
-      const filePath = path.join(process.cwd(), "public", "schoolImages", fileName);
+      // Upload buffer to Cloudinary
+      const uploadRes = await new Promise((resolve, reject) => {
+        cloudinary.uploader.upload_stream(
+          { folder: "schoolImages" },
+          (error, result) => {
+            if (error) reject(error);
+            else resolve(result);
+          }
+        ).end(buffer);
+      });
 
-      fs.writeFileSync(filePath, buffer);
-      imagePath = `/schoolImages/${fileName}`;
+      imageUrl = uploadRes.secure_url;
     }
 
     const conn = await getConnection();
     await conn.execute(
       "INSERT INTO schools (name, address, city, state, contact, image, email_id) VALUES (?, ?, ?, ?, ?, ?, ?)",
-      [name, address, city, state, contact, imagePath, email_id]
+      [name, address, city, state, contact, imageUrl, email_id]
     );
 
     return NextResponse.json({ message: "School added successfully!" });
